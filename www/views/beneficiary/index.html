@@ -1,0 +1,142 @@
+
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title id="pageTitle"></title>
+	<link href="/donation/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/donation/css/donation.css" rel="stylesheet">
+    
+    <script>
+        var url = "http://phplaravel-28496-61615-165490.cloudwaysapps.com/items";
+        var itemsBubble = "";
+        var filter = "";
+        
+        var getGreeting = function() {  
+    
+        $.ajax({
+                type: "POST",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                alert(data.d);
+                console.log(data.d);
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                console.log(xmlHttpRequest.responseText);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        })
+        
+        };
+    </script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="">
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                        <img src="/donation/assets/logo.png" class="navbar-brand"/>
+                
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+             <li><a href=""  data-toggle="modal" data-target="#filter"><span class="glyphicon glyphicon-filter"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- Filter Modal -->
+    <div id="filter" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Filters</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row"><button class="btn btn-info center-block">Food</button></div>
+                    <div class="row"><button class="btn btn-warning center-block">Clothing</button></div>
+                    <div class="row"><button class="btn btn-danger center-block">Blood</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div id="itemsList">Loading items..</div>
+            <!--
+            <div class="col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Food</div>
+                    <div class="panel-body">
+                        <div class="row" >
+                            <span class="col-lg-5"><img src = "" /></span><span class = "col-lg-7">hello</span>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+            -->
+        </div>
+    </div>
+</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="/donation/js/bootstrap.min.js"></script>
+<script>
+    
+    myArr=itemsBubble;
+    
+    //myArr=[{itemType:'Food'},{itemType:'Clothes'},{itemType:'Blood'}];
+    
+    myOut = "";
+    if(myArr.length > 0 && myArr)
+    {
+        for (i=0; i<(myArr.length);i++)
+        {
+            var itemType = myArr[i].itemType;
+
+            myOut+='<div class="panel panel-';
+
+            switch(itemType){
+
+                case "Food":
+                  myOut += 'info"><div class="panel-heading">Food';
+                break;
+
+                case "Clothes":
+                  myOut += 'warning"><div class="panel-heading">Clothes';
+                break;
+
+                case "Blood":
+                    myOut += 'danger"><div class="panel-heading">Blood';
+                break;
+
+            }
+
+            myOut+='</div><div class="panel-body">';
+            myOut+='</div></div>';
+
+        }
+        
+        document.getElementById("itemsList").innerHTML = myOut;
+    }
+    else{
+        myOut+='No items available';
+    }
+           
+</script>
+
+
+</html>
